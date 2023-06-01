@@ -1,5 +1,7 @@
 package com.example.crudmicroservice.student;
 
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,12 +16,20 @@ public class ProfileController {
 
     @PostMapping("/students")
     Student newStudent(@RequestBody Student newStudent) {
+
         return studentRepository.save(newStudent);
     }
 
     @GetMapping("/students")
-    List<Student> listStudents() {
-        return studentRepository.findAll();
+    CollectionModel<EntityModel<Student>> listStudents() {
+        List<EntityModel<Student>> studentList = studentRepository.findAll().stream().map((student -> EntityModel.of(student))).toList();
+        return CollectionModel.of(studentList);
+    }
+
+    @GetMapping("/students/{id}")
+    EntityModel<Student> getStudentById(@PathVariable UUID id){
+        Student student = studentRepository.findById(id).orElse(null); //usernotfoundexception
+        return EntityModel.of(student);
     }
 
 
