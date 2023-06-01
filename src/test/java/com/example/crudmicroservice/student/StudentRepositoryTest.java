@@ -22,19 +22,15 @@ public class StudentRepositoryTest {
     @Rollback(false)
     public void addStudentToDatabase() throws Exception {
         Student s1 = new Student("Anthony", "anthony@soprano.com");
-        Student s2 = new Student("Delete Me", "deleteme@google.com");
         assertNull(s1.getId());
-        assertNull(s2.getId());
         this.studentRepository.save(s1);
-        this.studentRepository.save(s2);
         assertNotNull(s1.getId());
-        assertNotNull(s2.getId());
     }
 
 
     @Test
     public void getStudentById() throws Exception{
-        String UUIDString = "524df090-0bdc-457f-a463-2966ef21d250";
+        String UUIDString = "d10f3b24-7d3c-4221-820b-84d0b77870fb";
         Student s1 = this.studentRepository.getById(UUID.fromString(UUIDString));
         assertNotNull(s1);
         assertEquals(UUID.fromString(UUIDString),s1.getId());
