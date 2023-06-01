@@ -30,7 +30,7 @@ public class StudentRepositoryTest {
 
     @Test
     public void getStudentById() throws Exception{
-        String UUIDString = "d10f3b24-7d3c-4221-820b-84d0b77870fb";
+        String UUIDString = "ab05532a-bca0-4e4f-9452-aa18493aacb9";
         Student s1 = this.studentRepository.getById(UUID.fromString(UUIDString));
         assertNotNull(s1);
         assertEquals(UUID.fromString(UUIDString),s1.getId());
