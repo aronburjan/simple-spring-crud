@@ -16,22 +16,32 @@ public class ProfileController {
 
     @PostMapping("/students")
     Student newStudent(@RequestBody Student newStudent) {
-
         return studentRepository.save(newStudent);
     }
 
     @GetMapping("/students")
-    CollectionModel<EntityModel<Student>> listStudents() {
-        List<EntityModel<Student>> studentList = studentRepository.findAll().stream().map((student -> EntityModel.of(student))).toList();
-        return CollectionModel.of(studentList);
+    List<Student> getStudents() {
+        List<Student> studentList = studentRepository.findAll();
+        return studentList;
     }
 
     @GetMapping("/students/{id}")
-    EntityModel<Student> getStudentById(@PathVariable UUID id){
-        Student student = studentRepository.findById(id).orElse(null); //usernotfoundexception
-        return EntityModel.of(student);
+    Student getStudentById(@PathVariable UUID id){
+        Student student = studentRepository.findById(id).orElseThrow(() -> new ProfileNotFoundException(id)); //usernotfoundexception
+        return student;
     }
 
+    @PutMapping("/students/{id}")
+    Student updateStudent(@RequestBody Student newStudent, @PathVariable UUID id){
+        Student student = studentRepository.findById(id).orElseThrow(() -> new ProfileNotFoundException(id));
+        student.setName(newStudent.getName());
+        student.setEmail(newStudent.getName());
+        return studentRepository.save(student);
+    }
 
+    @DeleteMapping("/students/{id}")
+    void deleteStudent(@PathVariable UUID id){
+        studentRepository.deleteById(id);
+    }
 }
 
