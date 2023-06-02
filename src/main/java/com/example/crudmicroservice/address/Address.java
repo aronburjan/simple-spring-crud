@@ -1,8 +1,19 @@
 package com.example.crudmicroservice.address;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
 import java.util.UUID;
+@Entity
 public class Address {
-    UUID id;
-    String address;
+
+    private @Id @GeneratedValue UUID id;
+    private String address;
+
+    public Address(){}
+    public Address(String address){
+        this.address = address;
+    }
 
     public UUID getId() {
         return id;
