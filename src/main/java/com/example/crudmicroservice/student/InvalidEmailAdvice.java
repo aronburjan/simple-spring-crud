@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
-public class ProfileNotFoundAdvice {
+public class InvalidEmailAdvice {
     @ResponseBody
-    @ExceptionHandler(ProfileNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    String profileNotFoundHandler(ProfileNotFoundException ex) {
+    @ExceptionHandler(InvalidEmailException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    String invalidEmailHandler(InvalidEmailException ex) {
         return ex.getMessage();
     }
 }
