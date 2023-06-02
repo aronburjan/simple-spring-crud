@@ -36,22 +36,24 @@ public class CrudMicroserviceApplicationTests {
 		baseUrl += "/students";
 	}
 
+
+
+	//get students integration test
+	@Test
+	@Sql(statements = "INSERT INTO Student (Id, name, email) VALUES (UUID(), 'Walter White', 'walter.white@gmail.com'), (UUID(), 'Lalo Salamanca', 'lalo.salamanca@gmail.com')",executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+	public void testGetStudents(){
+		List<Student> responseList = restTemplate.getForObject(baseUrl, List.class);
+		assertEquals(2, responseList.size());
+	}
+
 	//add student integration test
 
 	@Test
 	public void testAddStudent(){
 		Student student = new Student("Saul Goodman", "saul.goodman@gmail.com");
 		Student response = restTemplate.postForObject(baseUrl, student, Student.class);
-		assertEquals("Hank Schrader", response.getName());
-		assertEquals(1,testStudentRepository.findAll().size());
-	}
-
-	//get students integration test
-	@Test
-	@Sql(statements = "INSERT INTO Student (Id, name, email) VALUES (UUID(), 'Saul Goodman', 'saul.goodman@gmail.com'), (UUID(), 'Lalo Salamanca', 'lalo.salamanca@gmail.com')",executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-	public void testGetStudents(){
-		List<Student> responseList = restTemplate.getForObject(baseUrl, List.class);
-		assertEquals(2, responseList.size());
+		assertEquals("Saul Goodman", response.getName());
+		assertEquals(3,testStudentRepository.findAll().size());
 	}
 
 }
