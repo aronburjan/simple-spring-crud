@@ -1,6 +1,5 @@
 package com.example.crudmicroservice.address;
 
-import com.example.crudmicroservice.student.ProfileNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

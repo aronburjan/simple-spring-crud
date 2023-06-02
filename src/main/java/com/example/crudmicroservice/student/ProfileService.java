@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 @Service
 public class ProfileService {
     private final StudentRepository studentRepository;
-    private final Logger logger = LoggerFactory.getLogger(ProfileController.class);
+    private final Logger logger = LoggerFactory.getLogger(ProfileService.class);
 
     public ProfileService(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
@@ -55,7 +55,7 @@ public class ProfileService {
     }
 
     public void deleteStudent(UUID id){
-        logger.trace("ProfileController DELETE by id accessed");
+        logger.trace("ProfileService DELETE by id accessed");
         studentRepository.deleteById(id);
     }
 
