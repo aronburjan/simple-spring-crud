@@ -14,8 +14,8 @@ public class AddressController {
         this.addressService = addressService;
     }
 
-    @GetMapping("/addresses/{id}")
-    Address getAddressById(@PathVariable UUID id){
-        return addressService.getAddressById(id);
+    @GetMapping("/addresses")
+    Address getAddressById(){
+        return addressService.getAddress();
     }
 }

@@ -15,9 +15,11 @@ public class AddressService {
         this.addressRepository = addressRepository;
     }
 
-    public Address getAddressById(UUID id){
+    public Address getAddress(){
         logger.trace("AddressService get by Id accessed");
-        Address address = addressRepository.findById(id).orElseThrow(() -> new AddressNotFoundException(id));
+        Address address = new Address();
+        address.setId(UUID.randomUUID());
+        address.setAddress("London, Example street 1.");
         return address;
     }
 }

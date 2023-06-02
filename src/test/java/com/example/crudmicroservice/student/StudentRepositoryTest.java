@@ -28,18 +28,18 @@ public class StudentRepositoryTest {
 
     @Test
     public void getStudentById() throws Exception{
-        String UUIDString = "ab05532a-bca0-4e4f-9452-aa18493aacb9";
-        Student s1 = this.studentRepository.getById(UUID.fromString(UUIDString));
-        assertNotNull(s1);
-        assertEquals(UUID.fromString(UUIDString),s1.getId());
-        assertEquals("Anthony",s1.getName());
+        Student s1 = new Student("Saul Goodman", "saul.goodman@gmail.com");
+        this.studentRepository.save(s1);
+        assertEquals(s1.getId(),this.studentRepository.getReferenceById(s1.getId()).getId());
+        assertEquals("Saul Goodman",this.studentRepository.getReferenceById(s1.getId()).getName());
     }
 
     @Test
     public void deleteStudentById() throws Exception{
-        String UUIDString = "819f8a8c-a1be-42a2-a672-c0b57001094e";
-        this.studentRepository.deleteById(UUID.fromString(UUIDString));
-        assertThrows(JpaObjectRetrievalFailureException.class, () -> this.studentRepository.getReferenceById(UUID.fromString(UUIDString)));
+        Student s1 = new Student("Saul Goodman", "saul.goodman@gmail.com");
+        this.studentRepository.save(s1);
+        this.studentRepository.deleteById(s1.getId());
+        assertThrows(JpaObjectRetrievalFailureException.class, () -> this.studentRepository.getReferenceById(s1.getId()));
     }
 
 

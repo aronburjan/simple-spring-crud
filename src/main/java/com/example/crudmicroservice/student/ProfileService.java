@@ -44,14 +44,19 @@ public class ProfileService {
         logger.trace("ProfileService update by id accessed");
         Student student = studentRepository.findById(id).orElseThrow(() -> new ProfileNotFoundException(id));
         Student updateStudent = newStudent;
-        if(!(emailIsUnique(studentRepository, student.getEmail())) || !checkEmailValidity(student.getEmail())){
-            logger.error("Invalid email error");
-            throw(new InvalidEmailException(updateStudent.getEmail()));
-        }else {
-            student.setName(newStudent.getName());
-            student.setEmail(newStudent.getEmail());
-            return studentRepository.save(student);
+        if(!(updateStudent.getEmail().equals(student.getEmail()))){ //only check email if it's changed
+            if(!(emailIsUnique(studentRepository, updateStudent.getEmail())) || !checkEmailValidity(updateStudent.getEmail())){
+                logger.error("Invalid email error");
+                throw(new InvalidEmailException(updateStudent.getEmail()));
+            }else {
+                student.setName(newStudent.getName());
+                student.setEmail(newStudent.getEmail());
+                return studentRepository.save(student);
+            }
         }
+        student.setName(newStudent.getName());
+        return studentRepository.save(student);
+
     }
 
     public void deleteStudent(UUID id){

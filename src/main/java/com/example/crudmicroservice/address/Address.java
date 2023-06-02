@@ -26,4 +26,8 @@ public class Address {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
 }
